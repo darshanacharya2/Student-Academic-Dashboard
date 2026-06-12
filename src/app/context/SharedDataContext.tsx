@@ -1,4 +1,4 @@
-import { createContext, useContext, useState, useEffect, ReactNode } from "react";
+import { createContext, useContext, useState, useEffect, ReactNode, useMemo } from "react";
 import {
   mockAssignmentsData,
   mockSubmissionsData,
@@ -377,35 +377,45 @@ export function SharedDataProvider({ children }: { children: ReactNode }) {
     saveToStorage(STORAGE_KEYS.IA_MARKS, updatedIAMarks);
   };
 
+  const contextValue = useMemo(() => ({
+    assignments,
+    achievements,
+    submissions,
+    iaMarks,
+    announcements,
+    colleges,
+    addAssignment,
+    addAchievement,
+    addAnnouncement,
+    addCollege,
+    updateCollege,
+    deleteCollege,
+    updateAssignment,
+    deleteAssignment,
+    updateAchievement,
+    deleteAchievement,
+    updateMarks,
+    submitAssignment,
+    addIAMark,
+    updateIAMark,
+    deleteIAMarks,
+    approveIAMark,
+    rejectIAMark,
+    attendance,
+    upsertAttendance,
+    deleteAttendanceByClass
+  }), [
+    assignments,
+    achievements,
+    submissions,
+    iaMarks,
+    announcements,
+    colleges,
+    attendance
+  ]);
+
   return (
-    <SharedDataContext.Provider value={{
-      assignments,
-      achievements,
-      submissions,
-      iaMarks,
-      announcements,
-      colleges,
-      addAssignment,
-      addAchievement,
-      addAnnouncement,
-      addCollege,
-      updateCollege,
-      deleteCollege,
-      updateAssignment,
-      deleteAssignment,
-      updateAchievement,
-      deleteAchievement,
-      updateMarks,
-      submitAssignment,
-      addIAMark,
-      updateIAMark,
-      deleteIAMarks,
-      approveIAMark,
-      rejectIAMark,
-      attendance,
-      upsertAttendance,
-      deleteAttendanceByClass
-    }}>
+    <SharedDataContext.Provider value={contextValue}>
       {children}
     </SharedDataContext.Provider>
   );

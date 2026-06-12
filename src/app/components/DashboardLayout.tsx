@@ -36,7 +36,7 @@ export function DashboardLayout({ children, title, sidebar }: DashboardLayoutPro
     .filter(a => {
       if (a.author_id === user?.user_id) return false; // don't notify them of their own announcements
       if (a.target_audience === "all") return true;
-      if (user?.role === "student" && a.target_audience === user?.batch) return true;
+      if (user?.role === "student" && a.target_audience === (user as any)?.batch) return true;
       return false;
     })
     .sort((a, b) => new Date(b.created_at).getTime() - new Date(a.created_at).getTime());

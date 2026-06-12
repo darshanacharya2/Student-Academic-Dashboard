@@ -10,6 +10,15 @@ export default defineConfig({
     react(),
     tailwindcss(),
   ],
+  build: {
+    rollupOptions: {
+      output: {
+        manualChunks: {
+          vendor: ['react', 'react-dom', 'react-router', 'recharts', 'lucide-react'],
+        },
+      },
+    },
+  },
   resolve: {
     alias: {
       // Alias @ to the src directory
